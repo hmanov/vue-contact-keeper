@@ -46,7 +46,7 @@ export default {
           }
         }
       });
-      console.log(ct);
+
       this.$store.commit('updateContacts', ct);
     }
   },

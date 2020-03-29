@@ -84,7 +84,7 @@ export default {
   created() {},
   computed: {
     user() {
-      return this.$store.state.user.name;
+      return this.$store.state.user ? this.$store.state.user.name : false;
     }
   }
 };

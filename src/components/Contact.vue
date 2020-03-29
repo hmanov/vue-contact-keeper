@@ -16,9 +16,11 @@
           <p>{{ contact.type }}</p>
         </div>
         <div class="row btn-row">
-          <button type="button" class="edit">
-            Details
-          </button>
+          <router-link :to="{ name: 'Details', params: { contact: contact } }">
+            <button type="button" class="edit">
+              Details
+            </button>
+          </router-link>
           <button @click="deleteContact(contact._id)" class="delete">
             Delete
           </button>
@@ -28,26 +30,16 @@
   </div>
 </template>
 <script>
-import axios from 'axios';
+import { contactsMixin } from '../mixins/contacts';
 export default {
+  mixins: [contactsMixin],
   props: {
     contact: {
       type: Object,
       required: true
     }
   },
-  methods: {
-    deleteContact(id) {
-      if (confirm('Are you sure to delete this contact')) {
-        axios.delete(`http://localhost:3000/api/contacts/${id}`, {
-          headers: { 'x-auth-token': localStorage.getItem('token') }
-        });
-        const deleted = this.$store.state.contacts.filter(e => e._id !== id);
-
-        this.$store.commit('deleteContact', deleted);
-      }
-    }
-  },
+  methods: {},
   created() {}
 };
 </script>
