@@ -51,9 +51,7 @@ export default {
     }
   },
   async created() {
-    const ct = await this.getContacts();
-    this.$store.commit('getContacts', ct);
-    this.baseContacts = this.contacts;
+    this.baseContacts = Array.from(await this.getContacts());
   }
 };
 </script>

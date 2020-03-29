@@ -12,8 +12,10 @@ export const contactsMixin = {
     async getContacts() {
       try {
         const res = await axios.get(url, { headers });
-        console.log('here');
-        return await res.data;
+        const data = await res.data;
+
+        this.$store.commit('getContacts', data);
+        return data;
       } catch (err) {
         console.error(err);
       }
