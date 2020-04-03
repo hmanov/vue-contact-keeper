@@ -25,8 +25,8 @@ export const auth = {
 
         this.$store.commit('login', user);
         this.$router.push({ name: 'Home' });
-      } catch (error) {
-        console.log(error);
+      } catch (err) {
+        return err.response.data.errors || err.response.data.msg;
       }
     }
   }

@@ -2,7 +2,7 @@
   <div class="host">
     <div class="form">
       <h1>LOGIN</h1>
-      <form @submit.prevent="login(email, password)">
+      <form @submit.prevent="requestError(login(email, password))">
         <div class="form-group">
           <input
             type="text"
@@ -31,12 +31,19 @@
             @keydown="validate('password')"
             @blur="validate('password')"
           />
+          <div class="error" v-if="errors">
+            {{ serverErrors(errors) }}
+          </div>
           <template v-if="$v.password.$error">
             <div class="error" v-if="!$v.password.required">
               password is required
             </div>
+            <div class="error" v-if="!$v.password.minLength">
+              password min length 6
+            </div>
           </template>
         </div>
+
         <span> <span style="color: red;">*</span> Required Fileds </span>
 
         <div class="form-group">
@@ -56,7 +63,7 @@
 </template>
 <script>
 import { validationMixin } from 'vuelidate';
-import { required, email } from 'vuelidate/lib/validators';
+import { required, email, minLength } from 'vuelidate/lib/validators';
 import { auth } from '../mixins/auth';
 export default {
   name: 'Login',
@@ -64,7 +71,8 @@ export default {
   data() {
     return {
       password: '',
-      email: ''
+      email: '',
+      errors: ''
     };
   },
   validations: {
@@ -73,13 +81,21 @@ export default {
       email
     },
     password: {
-      required
+      required,
+      minLength: minLength(6)
     }
   },
 
   methods: {
     validate(input) {
       this.$v[input].$touch();
+    },
+    async requestError(a) {
+      this.errors = await a;
+    },
+    serverErrors(err) {
+      console.log(typeof err);
+      return typeof err === 'object' ? err.map(e => e.msg).join(', ') : err;
     }
   }
 };
