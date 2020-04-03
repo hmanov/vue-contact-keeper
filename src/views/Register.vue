@@ -2,7 +2,7 @@
   <div class="host">
     <div class="form">
       <h1>CREATE ACCOUNT</h1>
-      <form @submit.prevent="submitForm">
+      <form @submit.prevent="requestError(register({ name, email, password, repeatPassword }))">
         <div class="form-group">
           <input
             type="text"
@@ -26,6 +26,7 @@
             type="text"
             v-model="email"
             @blur="validate('email')"
+            @keydown="validate('email')"
             class="form-control"
             placeholder=" Your Email * "
             autocomplete="username"
@@ -78,6 +79,9 @@
               Passwords do not match
             </div>
           </template>
+          <div class="error" v-if="errors">
+            {{ serverErrors(errors) }}
+          </div>
         </div>
         <span> <span style="color: red;">*</span> Required Fileds </span>
 
@@ -102,8 +106,9 @@
 <script>
 import { validationMixin } from 'vuelidate';
 import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators';
+import { auth } from '../mixins/auth';
 export default {
-  mixins: [validationMixin],
+  mixins: [validationMixin, auth],
   data() {
     return {
       name: '',
@@ -136,9 +141,7 @@ export default {
       this.$v[input].$touch();
     }
   },
-  mounted() {
-    console.log(this.$v);
-  }
+  mounted() {}
 };
 </script>
 <style lang="scss" scoped>

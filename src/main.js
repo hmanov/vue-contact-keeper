@@ -5,11 +5,10 @@ import Vuex from 'vuex';
 import VueCookies from 'vue-cookies';
 import store from './store/store';
 Vue.config.productionTip = false;
-Vue.use(Vuex);
-Vue.use(VueCookies);
+Vue.use(Vuex, VueCookies);
 
 new Vue({
   router,
-  store: store(Vuex.Store),
+  store: store(Vuex.Store, VueCookies),
   render: h => h(App)
 }).$mount('#app');

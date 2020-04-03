@@ -1,7 +1,7 @@
-const store = Store =>
+const store = (Store, Cookies) =>
   new Store({
     state: {
-      user: JSON.parse(localStorage.getItem('user')),
+      user: JSON.parse(Cookies.get('user')),
       contacts: []
     },
     mutations: {
@@ -13,7 +13,7 @@ const store = Store =>
       },
       logout(state) {
         state.user = '';
-        localStorage.clear();
+        Cookies.remove('user');
       },
       deleteContact(state, value) {
         state.contacts = value;

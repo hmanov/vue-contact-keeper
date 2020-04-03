@@ -2,7 +2,7 @@
   <div class="host">
     <div class="form">
       <h1>LOGIN</h1>
-      <form @submit.prevent="requestError(login(email, password))">
+      <form @submit.prevent="requestError(login({ email, password }))">
         <div class="form-group">
           <input
             type="text"
@@ -71,8 +71,7 @@ export default {
   data() {
     return {
       password: '',
-      email: '',
-      errors: ''
+      email: ''
     };
   },
   validations: {
@@ -89,13 +88,6 @@ export default {
   methods: {
     validate(input) {
       this.$v[input].$touch();
-    },
-    async requestError(a) {
-      this.errors = await a;
-    },
-    serverErrors(err) {
-      console.log(typeof err);
-      return typeof err === 'object' ? err.map(e => e.msg).join(', ') : err;
     }
   }
 };
