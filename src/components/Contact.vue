@@ -16,7 +16,7 @@
           <p>{{ contact.type }}</p>
         </div>
         <div class="row btn-row">
-          <router-link :to="{ name: 'Details', params: { contact: contact } }">
+          <router-link :to="{ name: 'Details', params: { contact } }">
             <button type="button" class="edit">
               Details
             </button>

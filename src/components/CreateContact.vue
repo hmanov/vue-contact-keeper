@@ -4,7 +4,7 @@
       <h1>CREATE CONTACT</h1>
       <form>
         <div class="form-group">
-          <input type="text" class="form-control" placeholder="Contact Name *" ngModel />
+          <input type="text" class="form-control" placeholder="Contact Name *"  />
         </div>
 
         <div class="form-group">

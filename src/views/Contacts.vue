@@ -41,7 +41,11 @@ export default {
     search(value) {
       const ct = Array.from(this.baseContacts).filter(e => {
         for (let field of Object.values(e)) {
-          if (field.toString().includes(value)) {
+          const isMatch = field
+            .toString()
+            .toLowerCase()
+            .includes(value.toLowerCase());
+          if (isMatch) {
             return true;
           }
         }

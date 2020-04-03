@@ -48,8 +48,7 @@ export default {
       type: Object
     }
   },
-  beforeMount() {
-    console.log(this.contact._id);
+  created() {
     if (!this.contact) {
       this.$router.push({ name: 'Contacts' });
     }

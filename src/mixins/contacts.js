@@ -22,7 +22,6 @@ export const contactsMixin = {
     },
     async editContact(data) {
       try {
-        console.log(data);
         const res = await axios.put(url + data._id, data, { headers });
         return await res.data;
       } catch (err) {
