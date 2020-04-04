@@ -4,7 +4,13 @@
       <form @submit.prevent="editContact(contact)">
         <h1>EDIT YOUR CONTACT</h1>
         <div class="form-group">
-          <input type="text" class="form-control" value="" v-model="contact.name" />
+          <input
+            type="text"
+            class="form-control"
+            value=""
+            v-model="contact.name"
+            placeholder="Name..."
+          />
           <!-- <div class="alert">
             <div v-if="name.errors.required">
               Name is required.
@@ -18,13 +24,42 @@
           </div> -->
         </div>
         <div class="form-group">
-          <input type="text" class="form-control" value="" v-model="contact.email" />
+          <input
+            type="text"
+            class="form-control"
+            value=""
+            v-model="contact.email"
+            placeholder="Email..."
+          />
         </div>
         <div class="form-group">
+          <input
+            type="radio"
+            :checked="contact.type === 'personal'"
+            value="personal"
+            v-model="contact.type"
+          />
+          <label for="huey">Personal</label>
+          <input
+            type="radio"
+            value="professional"
+            :checked="contact.type === 'professional'"
+            v-model="contact.type"
+          />
+          <label for="huey">Professional</label>
+        </div>
+        <!-- <div class="form-group">
+          
           <input type="text" class="form-control" value="" v-model="contact.type" />
-        </div>
+        </div> -->
         <div class="form-group">
-          <input type="text" class="form-control" value="" v-model="contact.phone" />
+          <input
+            type="text"
+            class="form-control"
+            value=""
+            v-model="contact.phone"
+            placeholder="Phone..."
+          />
         </div>
         <div class="form-group">
           <div class="btn-group">
@@ -45,14 +80,14 @@ export default {
   mixins: [contactsMixin],
   props: {
     contact: {
-      type: Object
-    }
+      type: Object,
+    },
   },
   created() {
     if (!this.contact) {
       this.$router.push({ name: 'Contacts' });
     }
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -70,6 +105,12 @@ $lighter-color: #e1e2e2;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+}
+input[type='radio'] {
+  width: 8%;
+
+  margin: 20px 5px;
+  transform: scale(2);
 }
 .container {
   display: flex;
@@ -104,7 +145,7 @@ $lighter-color: #e1e2e2;
     }
     .form-group {
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       justify-content: center;
       align-items: center;
       width: 80%;
@@ -132,8 +173,7 @@ $lighter-color: #e1e2e2;
         width: 100%;
         padding: 15px;
         color: $lighter-color;
-        font-size: 14px;
-        font-weight: 700;
+        font-size: 16px;
       }
     }
     .delete,
@@ -165,7 +205,15 @@ $lighter-color: #e1e2e2;
     }
   }
 }
-
+input[type='radio'] {
+  width: 8% !important;
+  margin: 20px 5px;
+  transform: scale(2);
+}
+label {
+  color: $lighter-color;
+  font-size: 16px;
+}
 @media only screen and (max-width: 768px) {
   form {
     width: 90% !important;

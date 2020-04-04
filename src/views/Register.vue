@@ -114,34 +114,34 @@ export default {
       name: '',
       email: '',
       password: '',
-      repeatPassword: ''
+      repeatPassword: '',
     };
   },
   validations: {
     name: {
       required,
-      minLength: minLength(5)
+      minLength: minLength(2),
     },
     email: {
       required,
-      email
+      email,
     },
     password: {
       required,
       minLength: minLength(4),
-      maxLength: maxLength(10)
+      maxLength: maxLength(10),
     },
     repeatPassword: {
       required,
-      sameAsPassword: sameAs('password')
-    }
+      sameAsPassword: sameAs('password'),
+    },
   },
   methods: {
     validate(input) {
       this.$v[input].$touch();
-    }
+    },
   },
-  mounted() {}
+  mounted() {},
 };
 </script>
 <style lang="scss" scoped>

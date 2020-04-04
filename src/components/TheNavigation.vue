@@ -65,7 +65,7 @@ export default {
   name: 'TheNavigation',
   data() {
     return {
-      collapse: false
+      collapse: false,
     };
   },
   methods: {
@@ -75,7 +75,7 @@ export default {
     logout() {
       this.$store.commit('logout');
       if (this.$route.name !== 'Home') this.$router.push({ name: 'Home' });
-    }
+    },
   },
   async mounted() {
     // const a = await axios.get('https://jsonplaceholder.typicode.com/todos/1');
@@ -85,8 +85,8 @@ export default {
   computed: {
     user() {
       return this.$store.state.user ? this.$store.state.user.name : false;
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -110,7 +110,7 @@ nav {
 
   .branding {
     color: $secondary-color;
-
+    cursor: pointer;
     padding: 10px;
     font-size: 1.4em;
     margin-left: 20px;

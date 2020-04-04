@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const token = localStorage.getItem('token');
-const url = 'http://localhost:3000/api/contacts/';
+const url = 'https://hmanov.herokuapp.com/api/contacts/';
 const headers = { 'x-auth-token': token };
 export const contactsMixin = {
   methods: {
@@ -32,15 +32,15 @@ export const contactsMixin = {
       if (confirm('Are you sure to delete this contact')) {
         try {
           axios.delete(url + id, {
-            headers
+            headers,
           });
-          const deleted = this.$store.state.contacts.filter(e => e._id !== id);
+          const deleted = this.$store.state.contacts.filter((e) => e._id !== id);
 
           this.$store.commit('deleteContact', deleted);
         } catch (error) {
           console.log(error.msg);
         }
       }
-    }
-  }
+    },
+  },
 };

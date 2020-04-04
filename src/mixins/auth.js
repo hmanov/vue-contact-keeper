@@ -1,24 +1,26 @@
 import axios from 'axios';
 import * as cookies from 'vue-cookies';
 const url = 'http://localhost:3000/api/auth';
-const getUserUrl = 'http://localhost:3000/api/users';
+const registerUrl = 'http://localhost:3000/api/users';
+// const url =  'https://hmanov.herokuapp.com/api/auth';
+// const registerUrl = 'https://hmanov.herokuapp.com/api/users';
 const postHeaders = {
   headers: {
-    'Content-Type': 'application/json'
-  }
+    'Content-Type': 'application/json',
+  },
 };
 
 const getUser = async (token, store, router) => {
   try {
     const headers = {
       headers: {
-        'x-auth-token': token
-      }
+        'x-auth-token': token,
+      },
     };
 
     let user = await axios.get(url, headers);
     user = await user.data;
-    cookies.set('user', JSON.stringify(user));
+    cookies.set('user', user, '1h');
 
     store.commit('login', user);
     router.push({ name: 'Home' });
@@ -33,9 +35,11 @@ export const auth = {
   methods: {
     async login(credentials) {
       try {
-        const res = await axios.post(url, credentials, { postHeaders });
+        const res = await axios.post(url, credentials, {
+          postHeaders,
+        });
         const { token } = await res.data;
-        localStorage.setItem('token', token);
+        cookies.set('token', token, '1h');
         getUser(token, this.$store, this.$router);
       } catch (err) {
         return err.response.data.errors || err.response.data.msg;
@@ -43,7 +47,7 @@ export const auth = {
     },
     async register(registrationData) {
       try {
-        const res = await axios.post(getUserUrl, registrationData, { postHeaders });
+        const res = await axios.post(registerUrl, registrationData, { postHeaders });
         const { token } = await res.data;
         getUser(token, this.$store, this.$router);
       } catch (err) {
@@ -55,7 +59,7 @@ export const auth = {
     },
     serverErrors(err) {
       console.log(err);
-      return typeof err === 'object' ? err.map(e => e.msg).join(', ') : err;
-    }
-  }
+      return typeof err === 'object' ? err.map((e) => e.msg).join(', ') : err;
+    },
+  },
 };

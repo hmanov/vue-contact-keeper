@@ -9,6 +9,9 @@
       @keyup="search($event.target.value)"
       placeholder="Search Contact Here..."
     />
+    <router-link class="create" :to="{ name: 'CreateContact' }">
+      Create Contact
+    </router-link>
     <div class="contactWrapper">
       <contact
         class="container"
@@ -29,17 +32,17 @@ export default {
   mixins: [contactsMixin],
   data() {
     return {
-      baseContacts: []
+      baseContacts: [],
     };
   },
   computed: {
     contacts() {
       return this.$store.state.contacts;
-    }
+    },
   },
   methods: {
     search(value) {
-      const ct = Array.from(this.baseContacts).filter(e => {
+      const ct = Array.from(this.baseContacts).filter((e) => {
         for (let field of Object.values(e)) {
           const isMatch = field
             .toString()
@@ -52,11 +55,11 @@ export default {
       });
 
       this.$store.commit('updateContacts', ct);
-    }
+    },
   },
   async created() {
     this.baseContacts = Array.from(await this.getContacts());
-  }
+  },
 };
 </script>
 <style lang="scss" scoped>
@@ -98,7 +101,7 @@ $lighter-color: #e1e2e2;
   flex-direction: column;
   .create {
     border: 1px solid $secondary-color;
-    margin-top: 13vh;
+    margin: 20px;
     display: block;
     margin-left: auto;
     margin-right: auto;
@@ -111,6 +114,7 @@ $lighter-color: #e1e2e2;
     color: $lighter-color;
     font-size: 1.3rem;
     cursor: pointer;
+    text-decoration: none;
   }
   .search {
     display: block;
