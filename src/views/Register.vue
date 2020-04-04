@@ -9,7 +9,7 @@
             class="form-control"
             :class="{ valid: !$v.name.$error && name !== '' }"
             placeholder="Your Name *"
-            v-model="name"
+            v-model.trim="name"
             @keydown="validate('name')"
             @blur="validate('name')"
           />
@@ -24,7 +24,7 @@
           <input
             :class="{ valid: !$v.email.$error && email !== '' }"
             type="text"
-            v-model="email"
+            v-model.trim="email"
             @blur="validate('email')"
             @keydown="validate('email')"
             class="form-control"
@@ -42,8 +42,8 @@
         </div>
         <div class="form-group">
           <input
-            v-model="password"
-            :class="{ valid: !$v.password.$error && password !== '' }"
+            v-model.trim="password"
+            :class="{ valid: !$v.password.$error && password.length > 5 }"
             type="password"
             class="form-control"
             placeholder=" Your Pasword *"
@@ -62,7 +62,7 @@
         </div>
         <div class="form-group">
           <input
-            v-model="repeatPassword"
+            v-model.trim="repeatPassword"
             :class="{ valid: !$v.repeatPassword.$error && repeatPassword !== '' }"
             type="password"
             class="form-control"

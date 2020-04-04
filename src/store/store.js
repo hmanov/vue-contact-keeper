@@ -7,7 +7,6 @@ const store = (Store, Cookies) =>
     mutations: {
       login(state, user) {
         state.user = user;
-        console.log(user);
       },
       getContacts(state, contacts) {
         state.contacts = contacts;

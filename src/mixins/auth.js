@@ -1,9 +1,9 @@
 import axios from 'axios';
 import * as cookies from 'vue-cookies';
-const url = 'http://localhost:3000/api/auth';
-const registerUrl = 'http://localhost:3000/api/users';
-// const url =  'https://hmanov.herokuapp.com/api/auth';
-// const registerUrl = 'https://hmanov.herokuapp.com/api/users';
+// const url = 'http://localhost:3000/api/auth';
+// const registerUrl = 'http://localhost:3000/api/users';
+const url = 'https://hmanov.herokuapp.com/api/auth';
+const registerUrl = 'https://hmanov.herokuapp.com/api/users';
 const postHeaders = {
   headers: {
     'Content-Type': 'application/json',
@@ -47,8 +47,9 @@ export const auth = {
     },
     async register(registrationData) {
       try {
-        const res = await axios.post(registerUrl, registrationData, { postHeaders });
+        const res = await axios.post(registerUrl, registrationData, postHeaders);
         const { token } = await res.data;
+        cookies.set('token', token, '1h');
         getUser(token, this.$store, this.$router);
       } catch (err) {
         return err.response.data.errors || err.response.data.msg;

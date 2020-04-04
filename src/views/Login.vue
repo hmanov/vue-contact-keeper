@@ -6,7 +6,7 @@
         <div class="form-group">
           <input
             type="text"
-            v-model="email"
+            v-model.trim="email"
             @blur="validate('email')"
             class="form-control"
             placeholder=" Your Email * "
@@ -23,7 +23,7 @@
         </div>
         <div class="form-group">
           <input
-            v-model="password"
+            v-model.trim="password"
             type="password"
             class="form-control"
             placeholder=" Your Pasword *"
@@ -71,25 +71,25 @@ export default {
   data() {
     return {
       password: '',
-      email: ''
+      email: '',
     };
   },
   validations: {
     email: {
       required,
-      email
+      email,
     },
     password: {
       required,
-      minLength: minLength(6)
-    }
+      minLength: minLength(6),
+    },
   },
 
   methods: {
     validate(input) {
       this.$v[input].$touch();
-    }
-  }
+    },
+  },
 };
 </script>
 <style lang="scss" scoped>

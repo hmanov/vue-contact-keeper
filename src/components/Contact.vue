@@ -1,5 +1,5 @@
 <template>
-  <div class="host">
+  <div class="host" @click="details">
     <div class="ss">
       <div class="img "><p class="rotating">Contact Keeper</p></div>
       <div class="contact">
@@ -16,11 +16,10 @@
           <p>{{ contact.type }}</p>
         </div>
         <div class="row btn-row">
-          <router-link :to="{ name: 'Details', params: { contact } }">
-            <button type="button" class="edit">
-              Details
-            </button>
-          </router-link>
+          <button type="button" class="edit">
+            Details
+          </button>
+
           <button @click="deleteContact(contact._id)" class="delete">
             Delete
           </button>
@@ -36,11 +35,15 @@ export default {
   props: {
     contact: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
-  methods: {},
-  created() {}
+  methods: {
+    details() {
+      this.$router.push({ name: 'Details', params: { contact: this.contact } });
+    },
+  },
+  created() {},
 };
 </script>
 <style lang="scss" scoped>
@@ -138,7 +141,7 @@ $lighter-color: #e1e2e2;
   }
 }
 @media only screen and (max-width: 992px) {
-  :host {
+  .host {
     width: 100%;
   }
   p {

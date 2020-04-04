@@ -13,9 +13,11 @@
             Try Now!
           </button>
         </router-link>
-        <button v-if="user" type="button" class="btn-lg">
-          Create Contact
-        </button>
+        <router-link :to="{ name: 'CreateContact' }">
+          <button v-if="user" type="button" class="btn-lg">
+            Create Contact
+          </button>
+        </router-link>
       </p>
     </div>
   </div>
@@ -28,8 +30,8 @@ export default {
   computed: {
     user() {
       return this.$store.state.user;
-    }
-  }
+    },
+  },
 };
 </script>
 
