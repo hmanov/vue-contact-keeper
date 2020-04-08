@@ -1,22 +1,24 @@
 <template>
-  <div class="host" @click="details">
+  <div class="host">
     <div class="ss">
-      <div class="img "><p class="rotating">Contact Keeper</p></div>
+      <div class="img " @click="details"><p class="rotating">Contact Keeper</p></div>
       <div class="contact">
-        <div class="row">
-          <h3>{{ contact.name }}</h3>
-        </div>
-        <div class="row">
-          <p>{{ contact.email }}</p>
-        </div>
-        <div class="row">
-          <p>{{ contact.phone }}</p>
-        </div>
-        <div class="row">
-          <p>{{ contact.type }}</p>
+        <div @click="details">
+          <div class="row">
+            <h3>{{ contact.name }}</h3>
+          </div>
+          <div class="row">
+            <p>{{ contact.email }}</p>
+          </div>
+          <div class="row">
+            <p>{{ contact.phone }}</p>
+          </div>
+          <div class="row">
+            <p>{{ contact.type }}</p>
+          </div>
         </div>
         <div class="row btn-row">
-          <button type="button" class="edit">
+          <button type="button" class="edit" @click="details">
             Details
           </button>
 
@@ -85,6 +87,7 @@ $lighter-color: #e1e2e2;
   width: 33%;
   background-color: $secondary-color;
   text-align: center;
+  cursor: pointer;
   p {
     color: $lighter-color !important;
   }
@@ -97,6 +100,7 @@ $lighter-color: #e1e2e2;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  cursor: pointer;
 }
 .row {
   width: 100%;

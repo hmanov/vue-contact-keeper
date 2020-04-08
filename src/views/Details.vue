@@ -67,7 +67,7 @@
               edit
             </button>
 
-            <button type="button" class="delete">Delete</button>
+            <button type="button" class="delete" @click="deleteContact(contact._id)">Delete</button>
           </div>
         </div>
       </form>
