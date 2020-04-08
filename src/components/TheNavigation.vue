@@ -1,6 +1,8 @@
 <template>
   <nav class="navbar">
-    <a type="button" class="branding">Contact Keeper</a>
+    <router-link :to="{ name: 'Home' }" style="text-decoration: none">
+      <a type="button" class="branding">Contact Keeper</a>
+    </router-link>
 
     <ul class="nav" :class="{ 'nav-show': collapse, 'nav-hide': !collapse }">
       <li class="nav-item" @click="toggleNavbarMenu()">

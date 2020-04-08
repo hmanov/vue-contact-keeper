@@ -2,7 +2,7 @@
   <div class="host">
     <div class="form">
       <h1>LOGIN</h1>
-      <form @submit.prevent="requestError(login({ email, password }))">
+      <form @submit.prevent="requestError(login({ email: email.toLowerCase(), password }))">
         <div class="form-group">
           <input
             type="text"
@@ -65,6 +65,7 @@
 import { validationMixin } from 'vuelidate';
 import { required, email, minLength } from 'vuelidate/lib/validators';
 import { auth } from '../mixins/auth';
+
 export default {
   name: 'Login',
   mixins: [validationMixin, auth],
@@ -74,6 +75,7 @@ export default {
       email: '',
     };
   },
+
   validations: {
     email: {
       required,

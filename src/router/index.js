@@ -39,9 +39,9 @@ const routes = [
     component: () => import(/* webpackChunkName: "CreateContact" */ '@/views/CreateContact.vue'),
   },
   {
-    path: '*',
+    path: '/404',
     name: '404',
-    alias: '404',
+    alias: '*',
     component: () => import(/* webpackChunkName: "404" */ '@/views/404.vue'),
   },
 ];

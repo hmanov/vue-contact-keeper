@@ -2,7 +2,7 @@ import axios from 'axios';
 import * as cookies from 'vue-cookies';
 
 const url = 'https://hmanov.herokuapp.com/api/contacts/';
-// const url = 'http://localhost:3000/api/contacts/';
+
 const token = cookies.get('token');
 
 const headers = { headers: { 'x-auth-token': token, 'Content-Type': 'application/json' } };
