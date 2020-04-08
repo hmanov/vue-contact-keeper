@@ -10,5 +10,5 @@ Vue.use(Vuex, VueCookies);
 new Vue({
   router,
   store: store(Vuex.Store, VueCookies),
-  render: h => h(App)
+  render: (h) => h(App),
 }).$mount('#app');

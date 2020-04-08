@@ -26,7 +26,10 @@
 
 <script>
 import moment from 'moment';
+
 export default {
+  name: 'Profile',
+
   computed: {
     user() {
       return this.$store.state.user;
@@ -37,6 +40,10 @@ export default {
   },
   methods: {
     moment: () => moment(),
+    logout() {
+      this.$store.commit('logout');
+      if (this.$route.name !== 'Home') this.$router.push({ name: 'Home' });
+    },
   },
   filters: {
     moment: (date) => moment(date).format('Do MMMM YYYY, h:mm '),

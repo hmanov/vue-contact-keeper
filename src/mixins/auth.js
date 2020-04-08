@@ -34,6 +34,7 @@ export const auth = {
   },
   methods: {
     async login(credentials) {
+      // credentials.email = credentials.email.toLowerCase()
       try {
         const res = await axios.post(url, credentials, {
           postHeaders,
