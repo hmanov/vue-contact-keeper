@@ -11,7 +11,9 @@
         </router-link>
       </li>
       <li class="nav-item" v-if="user" @click="toggleNavbarMenu()">
-        <a routerLink="/profile">Hello, {{ user }}!</a>
+        <router-link :to="{ name: 'Profile', params: { user } }">
+          <a>Hello, {{ user }}!</a>
+        </router-link>
       </li>
       <li class="nav-item" v-if="user" @click="toggleNavbarMenu()">
         <router-link :to="{ name: 'Contacts' }">

@@ -39,6 +39,12 @@ const routes = [
     component: () => import(/* webpackChunkName: "CreateContact" */ '@/views/CreateContact.vue'),
   },
   {
+    path: '/profile',
+    name: 'Profile',
+    props: true,
+    component: () => import(/* webpackChunkName: "Profile" */ '@/views/Profile.vue'),
+  },
+  {
     path: '/404',
     name: '404',
     alias: '*',
