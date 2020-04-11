@@ -22,7 +22,7 @@
 
         <div class="form-group">
           <input
-            :class="{ valid: !$v.email.$error && email !== '' }"
+            :class="{ valid: !$v.email.$error && email !== '' && !serverErrors() }"
             type="text"
             v-model.trim="email"
             @blur="validate('email')"
@@ -80,7 +80,7 @@
             </div>
           </template>
           <div class="error" v-if="errors">
-            {{ serverErrors(errors) }}
+            {{ serverErrors() }}
           </div>
         </div>
         <span> <span style="color: red;">*</span> Required Fileds </span>
@@ -114,34 +114,34 @@ export default {
       name: '',
       email: '',
       password: '',
-      repeatPassword: '',
+      repeatPassword: ''
     };
   },
   validations: {
     name: {
       required,
-      minLength: minLength(2),
+      minLength: minLength(2)
     },
     email: {
       required,
-      email,
+      email
     },
     password: {
       required,
       minLength: minLength(4),
-      maxLength: maxLength(10),
+      maxLength: maxLength(10)
     },
     repeatPassword: {
       required,
-      sameAsPassword: sameAs('password'),
-    },
+      sameAsPassword: sameAs('password')
+    }
   },
   methods: {
     validate(input) {
       this.$v[input].$touch();
-    },
+    }
   },
-  mounted() {},
+  mounted() {}
 };
 </script>
 <style lang="scss" scoped>

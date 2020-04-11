@@ -10,18 +10,14 @@
             value=""
             v-model="contact.name"
             placeholder="Name..."
+            @focus="validate('name')"
+            @keydown="validate('name')"
           />
-          <!-- <div class="alert">
-            <div v-if="name.errors.required">
-              Name is required.
+          <template v-if="$v.contact.name.$error">
+            <div class="error" v-if="!$v.contact.name.required">
+              name is required
             </div>
-            <div v-if="name.errors.minlength">
-            Name must be at least 4 characters long.
-            </div>
-            <div v-if="name.errors.forbiddenName">
-            Name cannot be Bobi.
-            </div>
-          </div> -->
+          </template>
         </div>
         <div class="form-group">
           <input
@@ -30,7 +26,17 @@
             value=""
             v-model="contact.email"
             placeholder="Email..."
+            @focus="validate('email')"
+            @keydown="validate('email')"
           />
+          <template v-if="$v.contact.email.$error">
+            <div class="error" v-if="!$v.contact.email.required">
+              email is required
+            </div>
+            <div class="error" v-if="!$v.contact.email.email">
+              Valid email is required
+            </div>
+          </template>
         </div>
         <div class="form-group">
           <input
@@ -63,8 +69,8 @@
         </div>
         <div class="form-group">
           <div class="btn-group">
-            <button type="submit" class="edit green" value="">
-              edit
+            <button type="submit" class="edit green" :disabled.sync="$v.$invalid">
+              Save
             </button>
 
             <button type="button" class="delete" @click="deleteContact(contact._id)">Delete</button>
@@ -76,18 +82,36 @@
 </template>
 <script>
 import { contactsMixin } from '../mixins/contacts';
+import { validationMixin } from 'vuelidate';
+import { required, email } from 'vuelidate/lib/validators';
 export default {
-  mixins: [contactsMixin],
+  mixins: [contactsMixin, validationMixin],
   props: {
     contact: {
-      type: Object,
-    },
+      type: Object
+    }
+  },
+  validations: {
+    contact: {
+      name: {
+        required
+      },
+      email: {
+        required,
+        email
+      }
+    }
+  },
+  methods: {
+    validate(input) {
+      this.$v.contact[input].$touch();
+    }
   },
   created() {
     if (!this.contact) {
       this.$router.push({ name: 'Contacts' });
     }
-  },
+  }
 };
 </script>
 <style lang="scss" scoped>
@@ -121,6 +145,16 @@ input[type='radio'] {
   align-items: center;
 
   form {
+    .error {
+      padding: 5px 15px;
+      margin: 5px 0;
+      width: 100%;
+      color: red;
+      font-size: 12px;
+      background-color: white;
+      border: 1px red solid;
+      border-radius: 5px;
+    }
     h1 {
       color: $lighter-color;
     }
@@ -145,11 +179,15 @@ input[type='radio'] {
     }
     .form-group {
       display: flex;
-      flex-direction: row;
+      flex-direction: column;
       justify-content: center;
       align-items: center;
       width: 80%;
       padding: 20px;
+
+      &:nth-child(4) {
+        flex-direction: row;
+      }
       .alert {
         padding: 5px 15px;
         border: 1px solid $lighter-color;
@@ -174,6 +212,7 @@ input[type='radio'] {
         padding: 15px;
         color: $lighter-color;
         font-size: 16px;
+        border-radius: 5px;
       }
     }
     .delete,
@@ -195,6 +234,9 @@ input[type='radio'] {
     .edit {
       background-color: white;
       color: green;
+      &:disabled {
+        color: gray;
+      }
     }
     .delete {
       background-color: white;
@@ -216,9 +258,18 @@ label {
 }
 @media only screen and (max-width: 768px) {
   form {
+    h1 {
+      font-size: 24px;
+    }
+    margin-top: 50px;
     width: 90% !important;
-
     min-height: fit-content;
+    input {
+      margin: 5px;
+    }
+  }
+  .form-group {
+    padding: 5px !important;
   }
 }
 </style>

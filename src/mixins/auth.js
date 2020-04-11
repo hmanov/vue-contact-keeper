@@ -6,16 +6,16 @@ const url = 'https://hmanov.herokuapp.com/api/auth';
 const registerUrl = 'https://hmanov.herokuapp.com/api/users';
 const postHeaders = {
   headers: {
-    'Content-Type': 'application/json',
-  },
+    'Content-Type': 'application/json'
+  }
 };
 
 const getUser = async (token, store, router) => {
   try {
     const headers = {
       headers: {
-        'x-auth-token': token,
-      },
+        'x-auth-token': token
+      }
     };
 
     let user = await axios.get(url, headers);
@@ -34,10 +34,9 @@ export const auth = {
   },
   methods: {
     async login(credentials) {
-      // credentials.email = credentials.email.toLowerCase()
       try {
         const res = await axios.post(url, credentials, {
-          postHeaders,
+          postHeaders
         });
         const { token } = await res.data;
         cookies.set('token', token, '1h');
@@ -53,15 +52,15 @@ export const auth = {
         cookies.set('token', token, '1h');
         getUser(token, this.$store, this.$router);
       } catch (err) {
-        return err.response.data.errors || err.response.data.msg;
+        return err.response.data;
       }
     },
     async requestError(a) {
       this.errors = await a;
     },
-    serverErrors(err) {
-      console.log(err);
-      return typeof err === 'object' ? err.map((e) => e.msg).join(', ') : err;
-    },
-  },
+    serverErrors() {
+      // setTimeout(() => (this.errors = ''), 5000);
+      return typeof this.errors === 'object' ? this.errors.map(e => e.msg).join(', ') : this.errors;
+    }
+  }
 };
